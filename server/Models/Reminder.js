@@ -15,7 +15,8 @@ const ReminderSchema = new Schema({
   completed: {
     type: Boolean,
     default: false
-  }
+  },
+  author: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
-module.exports = Reminder = mongoose.model("Reminder", ReminderSchema);
+module.exports = Reminder = mongoose.model("reminder", ReminderSchema);
