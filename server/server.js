@@ -12,6 +12,7 @@ const db = config.get("mongoURI");
 const app = express();
 
 app.use(express.json());
+mongoose.set("useFindAndModify", false);
 
 //Connect to MongoDB
 mongoose
