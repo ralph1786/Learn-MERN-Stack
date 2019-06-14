@@ -20,7 +20,8 @@ const UserSchema = new Schema({
   registration_date: {
     type: Date,
     default: Date.now
-  }
+  },
+  reminders: [{ type: Schema.Types.ObjectId, ref: "Reminder" }]
 });
 
-module.exports = User = mongoose.model("User", UserSchema);
+module.exports = User = mongoose.model("user", UserSchema);
