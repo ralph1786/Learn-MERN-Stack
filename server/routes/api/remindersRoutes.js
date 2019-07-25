@@ -38,22 +38,23 @@ router.post("/", authMiddleware, (req, res) => {
 router.put("/:id", authMiddleware, (req, res) => {
   const token = req.header("x-auth-token");
   const decoded = jwt.verify(token, config.get("jwtSecret"));
-  console.log(decoded);
-  console.log(req.body);
-  // console.log("from body", req.user);
   if (req.body.author == decoded.id) {
     Reminder.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true },
       (err, reminder) => {
-        return res.status(200).json(reminder);
+        if (err) {
+          return res
+            .status(500)
+            .json({ message: "Error could not update", err });
+        } else {
+          return res.status(200).json(reminder);
+        }
       }
     );
   } else {
-    return res
-      .status(404)
-      .json({ message: "Not Allowed To Perform Operation" });
+    return res.status(404).json({ message: "Not Allowed To Update Reminder" });
   }
 });
 
@@ -70,7 +71,9 @@ router.delete("/:id", authMiddleware, (req, res) => {
         res.status(404).json({ message: "Not Allowed To Delete" });
       }
     })
-    .catch(err => res.status(404).json({ message: "Reminder not deleted" }));
+    .catch(err =>
+      res.status(404).json({ message: "Reminder not deleted", err })
+    );
 });
 
 module.exports = router;
