@@ -24,4 +24,4 @@ const UserSchema = new Schema({
   reminders: [{ type: Schema.Types.ObjectId, ref: "Reminder" }]
 });
 
-module.exports = User = mongoose.model("user", UserSchema);
+module.exports = User = mongoose.model("User", UserSchema);
