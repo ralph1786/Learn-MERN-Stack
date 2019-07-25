@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const config = require("config");
 
+//Bringing routes in
 const reminders = require("./routes/api/remindersRoutes.js");
 const users = require("./routes/api/userRoutes.js");
 const auth = require("./routes/api/auth.js");
